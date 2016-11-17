@@ -1,0 +1,20 @@
+<resources>
+    <dimen name="space_s">4dp</dimen>
+    <dimen name="space_m">8dp</dimen>
+    <dimen name="space_l">12dp</dimen>
+    <dimen name="space_xl">16dp</dimen>
+    <dimen name="space_xxl">20dp</dimen>
+    <dimen name="space_xxxl">24dp</dimen>
+    <dimen name="space_7xl">40dp</dimen>
+    <dimen name="space_17xl">80dp</dimen>
+    <dimen name="text_s">4sp</dimen>
+    <dimen name="text_m">8sp</dimen>
+    <dimen name="text_l">12sp</dimen>
+    <dimen name="text_xl">16sp</dimen>
+    <dimen name="text_xxl">20sp</dimen>
+    <dimen name="text_xxxl">24sp</dimen>
+    <dimen name="text_h_s">2sp</dimen>
+    <dimen name="text_h_xl">14sp</dimen>
+    <dimen name="text_h_l">10sp</dimen>
+    <dimen name="space_h_s">2dp</dimen>
+</resources>
