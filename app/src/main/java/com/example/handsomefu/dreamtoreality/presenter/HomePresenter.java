@@ -5,7 +5,7 @@ import android.content.Context;
 import com.example.handsomefu.dreamtoreality.basemvp.BasePresenter;
 import com.example.handsomefu.dreamtoreality.model.bean.Daily;
 import com.example.handsomefu.dreamtoreality.model.bean.DataItem;
-import com.example.handsomefu.dreamtoreality.model.http.HttpMethods;
+import com.example.handsomefu.dreamtoreality.model.http.WelfareHttpMethods;
 import com.example.handsomefu.dreamtoreality.view.viewi.HomeView;
 
 import java.util.List;
@@ -17,13 +17,8 @@ import rx.Subscriber;
  */
 
 public class HomePresenter extends BasePresenter<HomeView> {
-    private Context mContext;
     private Subscriber dataSubscriber;
     private Subscriber dailySubscriber;
-    public HomePresenter(Context context) {
-        this.mContext = context;
-    }
-
     //获取数据
     public void getData(String type, int number, int page) {
         mView.showLoading();
@@ -45,7 +40,7 @@ public class HomePresenter extends BasePresenter<HomeView> {
                 mView.onDataSuccessed(data);
             }
         };
-        HttpMethods.getInstance().getDatas(dataSubscriber, type, number, page);
+        WelfareHttpMethods.getInstance().getDatas(dataSubscriber, type, number, page);
     }
     //获取每日精彩
     public void getDaily(int year, int month, int day) {
@@ -68,7 +63,7 @@ public class HomePresenter extends BasePresenter<HomeView> {
                 mView.onDailySuccessed(daily);
             }
         };
-        HttpMethods.getInstance().getDaily(dailySubscriber, year, month, day);
+        WelfareHttpMethods.getInstance().getDaily(dailySubscriber, year, month, day);
     }
 
     public void destroy() {

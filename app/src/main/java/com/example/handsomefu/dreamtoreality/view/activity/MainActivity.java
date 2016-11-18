@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.graphics.drawable.DrawerArrowDrawable;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,7 @@ import com.example.handsomefu.dreamtoreality.basemvp.BaseActivity;
 import com.example.handsomefu.dreamtoreality.model.http.ApiType;
 import com.example.handsomefu.dreamtoreality.model.utils.Glides;
 import com.example.handsomefu.dreamtoreality.presenter.HomePresenter;
-import com.example.handsomefu.dreamtoreality.view.fragment.FriendsFragment;
+import com.example.handsomefu.dreamtoreality.view.fragment.DouBFragment;
 import com.example.handsomefu.dreamtoreality.view.fragment.HomeFragment;
 import com.example.handsomefu.dreamtoreality.view.fragment.MyFragment;
 import com.example.handsomefu.dreamtoreality.R;
@@ -51,7 +50,7 @@ public class MainActivity extends BaseActivity<HomeView, HomePresenter> implemen
         bottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE);
         bottomNavigationBar.addItem(new BottomNavigationItem(R.mipmap.main_home, "Home").
                 setActiveColorResource(R.color.colorPrimary));
-        bottomNavigationBar.addItem(new BottomNavigationItem(R.mipmap.main_friends, "Friends").
+        bottomNavigationBar.addItem(new BottomNavigationItem(R.mipmap.main_friends, "Books").
                 setActiveColorResource(R.color.colorAccent));
         bottomNavigationBar.addItem(new BottomNavigationItem(R.mipmap.main_my, "My").
                 setActiveColorResource(R.color.colorGreen));
@@ -163,7 +162,7 @@ public class MainActivity extends BaseActivity<HomeView, HomePresenter> implemen
         if (showFragment == null) {
             switch (to) {
                 case 1:
-                    fragmentTransaction.add(R.id.fl_mian, new FriendsFragment(), "1");
+                    fragmentTransaction.add(R.id.fl_mian, new DouBFragment(), "1");
                     break;
                 case 2:
                     fragmentTransaction.add(R.id.fl_mian, new MyFragment(), "2");

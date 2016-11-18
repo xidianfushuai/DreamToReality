@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/space_l"
+    android:background="@color/colorWhite">
+    <ImageView
+        android:id="@+id/iv_cover"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:src="@mipmap/beauty1"
+        android:scaleType="centerCrop"/>
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="书名"
+        android:layout_toRightOf="@id/iv_cover"
+        android:layout_marginLeft="@dimen/space_l"
+        android:textSize="@dimen/text_xl"
+        android:textColor="@color/colorBlack" />
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        android:text="dhsauduasdhiasdhasdhiashdiahsdiahsduihasidhiasdhuasdnascnakncasnckascnkasnckasdncjdnckasnjc"
+        android:layout_toRightOf="@id/iv_cover"
+        android:layout_below="@id/tv_title"
+        android:layout_margin="@dimen/space_xl"
+        android:textSize="@dimen/text_l"/>
+    <TextView
+        android:id="@+id/tv_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/iv_cover"
+        android:text="评分/作者/出版时间"
+        android:layout_alignBottom="@id/iv_cover"
+        android:layout_marginLeft="@dimen/space_l"
+        android:textSize="@dimen/text_l"
+        android:textColor="@color/colorGrey"/>
+</RelativeLayout>

@@ -1,9 +1,9 @@
 package com.example.handsomefu.dreamtoreality.model.http;
 
-import com.example.handsomefu.dreamtoreality.model.bean.Daily;
+import com.example.handsomefu.dreamtoreality.model.bean.Book;
 import com.example.handsomefu.dreamtoreality.model.bean.DataItem;
-import com.example.handsomefu.dreamtoreality.model.bean.HttpResult;
-
+import com.example.handsomefu.dreamtoreality.model.bean.DouBHttpResult;
+import com.example.handsomefu.dreamtoreality.model.bean.WelfareHttpResult;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -19,17 +19,19 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
+import static android.R.attr.type;
+
 /**
- * Created by HandsomeFu on 2016/11/15.
+ * Created by HandsomeFu on 2016/11/17.
  */
 
-public class HttpMethods {
-    public static final String BASE_URL = "http://gank.io/api/";
+public class DouBHttpMethods {
+    public static final String BASE_URL = "https://api.douban.com/v2/";
     private static final int DEFAULT_TIMEOUT = 8;
     private Retrofit retrofit;
-    private ApiService apiService;
+    private DouBApiService douBApiService;
     //构造方法私有
-    private HttpMethods() {
+    private DouBHttpMethods() {
         //手动创建一个OkHttpClient并设置超时时间
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
         httpClientBuilder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
@@ -41,31 +43,31 @@ public class HttpMethods {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .baseUrl(BASE_URL)
                 .build();
-        apiService = retrofit.create(ApiService.class);
+        douBApiService = retrofit.create(DouBApiService.class);
     }
     //在访问HttpMethods时创建单例
     private static class SingletonHolder{
-        private static final HttpMethods INSTANCE = new HttpMethods();
+        private static final DouBHttpMethods INSTANCE = new DouBHttpMethods();
     }
 
     //获取单例
-    public static HttpMethods getInstance(){
-        return SingletonHolder.INSTANCE;
+    public static DouBHttpMethods getInstance(){
+        return DouBHttpMethods.SingletonHolder.INSTANCE;
     }
 
     /**
      * 用来统一处理Http的resultCode,并将HttpResult的Data部分剥离出来返回给subscriber
-     *
      * @param <T> Subscriber真正需要的数据类型，也就是results部分的数据类型
      */
-    private class HttpResultFunc<T> implements Func1<HttpResult<T>, T> {
+    private class HttpResultFunc<T> implements Func1<DouBHttpResult<T>, T> {
         @Override
-        public T call(HttpResult<T> httpResult) {
-            if (httpResult.isError() == true) {
-//                throw new ApiException(httpResult.getError_code());
-                throw new ApiException("可能哪里出错了吧~~~");
-            }
-            return httpResult.getResult();
+        public T call(DouBHttpResult<T> douBHttpResult) {
+//            if (douBHttpResult.isError() == true) {
+//                throw new ApiException(welfareHttpResult.getError_code());
+//                throw new ApiException("可能哪里出错了吧~~~");
+//            }
+            T t = douBHttpResult.getResult();
+            return t;
         }
     }
     private <T> void toSubscribe(Observable<T> observable, Subscriber<T> subscriber){
@@ -74,26 +76,15 @@ public class HttpMethods {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
-
-
-    public void getDatas(
-            Subscriber<List<DataItem>> subscriber,
-            String type,
-            int number,
-            int page){
-        Observable<List<DataItem>> observable = apiService.
-                getData(type, number, page).
-                map(new HttpResultFunc<List<DataItem>>());
-        toSubscribe(observable,subscriber);
-    }
-    public void getDaily(
-            Subscriber<Daily> subscriber,
-            int year,
-            int month,
-            int day) {
-        Observable<Daily> observable = apiService.
-                getDaily(year, month, day).
-                map(new HttpResultFunc<Daily>());
+    public void searchBook(
+            Subscriber<List<Book>> subscriber,
+            String q,
+            String tag,
+            int start,
+            int count){
+        Observable<List<Book>> observable = douBApiService.
+                searchBook(q, tag, start, count).
+                map(new HttpResultFunc<List<Book>>());
         toSubscribe(observable,subscriber);
     }
 }

@@ -38,7 +38,7 @@ package com.example.handsomefu.dreamtoreality.model.bean;
  */
 
 //将返回的数据做统一处理   如果成功，返回results
-public class HttpResult<T> {
+public class WelfareHttpResult<T> {
     private boolean error;
     private T results;
 
@@ -60,7 +60,7 @@ public class HttpResult<T> {
 
     @Override
     public String toString() {
-        return "HttpResult{" +
+        return "WelfareHttpResult{" +
                 "error=" + error +
                 ", results=" + results +
                 '}';

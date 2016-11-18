@@ -30,13 +30,11 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
     @Bind(R.id.rv_list)
     RecyclerView rvList;
     private ProgressDialog progressDialog;
-    private HomeAdapter homeAdapter;
     private boolean isWeldare = false;
-    private HomeAdapter onItemClickListener;
 
     @Override
     protected HomePresenter initPresenter() {
-        return new HomePresenter(mContext);
+        return new HomePresenter();
     }
 
     @Override
@@ -49,7 +47,10 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
         progressDialog = new ProgressDialog(mContext);
         progressDialog.setCancelable(false);
         rvList.setLayoutManager(new LinearLayoutManager(mContext));
-        presenter.getData(ApiType.ANDROID, 10, 1);
+        presenter.getDaily(
+                CommonUtils.getYear(),
+                CommonUtils.getMonth(),
+                CommonUtils.getDay());
     }
 
     public void getData(String type) {
@@ -86,11 +87,15 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
         //判断返回的数据是不是福利
         if (!isWeldare) {
             rvList.setLayoutManager(new LinearLayoutManager(mContext));
-            rvList.setAdapter(setOnItemClickListener(new HomeAdapter(mContext, dataItemList, false), dataItemList));
+            rvList.setAdapter(setOnItemClickListener(
+                    new HomeAdapter(mContext, dataItemList, false),
+                    dataItemList));
         } else {
             //如果是福利  使用流式布局
             rvList.setLayoutManager(new LinearLayoutManager(mContext));
-            rvList.setAdapter(setOnItemClickListener(new HomeAdapter(mContext, dataItemList, true), dataItemList));
+            rvList.setAdapter(setOnItemClickListener(
+                    new HomeAdapter(mContext, dataItemList, true),
+                    dataItemList));
         }
     }
 
@@ -103,7 +108,9 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
     @Override
     public void onDailySuccessed(Daily daily) {
         rvList.setLayoutManager(new LinearLayoutManager(mContext));
-        rvList.setAdapter(setOnItemClickListener(new HomeAdapter(mContext, daily.getDataList(), false), daily.getDataList()));
+        rvList.setAdapter(setOnItemClickListener(
+                new HomeAdapter(mContext, daily.getDataList(), false),
+                daily.getDataList()));
     }
 
     @Override
@@ -120,7 +127,9 @@ public class HomeFragment extends BaseFragment<HomeView, HomePresenter> implemen
         isWeldare = false;
     }
 
-    public HomeAdapter setOnItemClickListener(HomeAdapter homeAdapter, final List<DataItem> dataItemList) {
+    public HomeAdapter setOnItemClickListener(
+            HomeAdapter homeAdapter,
+            final List<DataItem> dataItemList) {
         homeAdapter.setOnItemClickLitener(new HomeAdapter.OnItemClickLitener() {
             @Override
             public void onItemClick(View view, int position) {
