@@ -15,7 +15,6 @@ import rx.Subscriber;
 
 public class DouBPresenter extends BasePresenter<DouBView> {
     private Subscriber searchBookSubscriber;
-
     public void searchBook(String q, String tag, int start, int count) {
         mView.showLoading();
         searchBookSubscriber = new Subscriber<List<Book>>() {
