@@ -17,4 +17,5 @@
     <dimen name="text_h_xl">14sp</dimen>
     <dimen name="text_h_l">10sp</dimen>
     <dimen name="space_h_s">2dp</dimen>
+    <dimen name="space_4xl">28dp</dimen>
 </resources>

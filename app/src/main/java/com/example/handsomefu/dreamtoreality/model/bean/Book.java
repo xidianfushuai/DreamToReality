@@ -1,7 +1,5 @@
 package com.example.handsomefu.dreamtoreality.model.bean;
 
-import android.nfc.Tag;
-
 import java.util.List;
 public class Book {
     //评分情况
@@ -65,7 +63,7 @@ public class Book {
         return pubdate;
     }
 
-    public List<Tag> getTags() {
+    public List<com.example.handsomefu.dreamtoreality.model.bean.Tag> getTags() {
         return tags;
     }
 

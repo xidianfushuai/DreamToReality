@@ -20,6 +20,8 @@
         </activity>
         <activity android:name=".view.activity.WebviewActivity"
             android:screenOrientation="portrait"></activity>
+        <activity android:name=".view.activity.BookDetailActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

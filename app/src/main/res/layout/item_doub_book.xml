@@ -28,7 +28,9 @@
         android:text="dhsauduasdhiasdhasdhiashdiahsdiahsduihasidhiasdhuasdnascnakncasnckascnkasnckasdncjdnckasnjc"
         android:layout_toRightOf="@id/iv_cover"
         android:layout_below="@id/tv_title"
-        android:layout_margin="@dimen/space_xl"
+        android:layout_marginLeft="@dimen/space_xl"
+        android:layout_marginRight="@dimen/space_xl"
+        android:layout_marginTop="@dimen/space_l"
         android:textSize="@dimen/text_l"/>
     <TextView
         android:id="@+id/tv_details"

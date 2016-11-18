@@ -1,6 +1,7 @@
 package com.example.handsomefu.dreamtoreality.view.fragment;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -15,7 +16,9 @@ import com.example.handsomefu.dreamtoreality.model.bean.Book;
 import com.example.handsomefu.dreamtoreality.model.utils.CommonUtils;
 import com.example.handsomefu.dreamtoreality.presenter.DouBPresenter;
 import com.example.handsomefu.dreamtoreality.presenter.adapter.BookAdapter;
+import com.example.handsomefu.dreamtoreality.view.activity.BookDetailActivity;
 import com.example.handsomefu.dreamtoreality.view.viewi.DouBView;
+import com.google.gson.Gson;
 
 import org.w3c.dom.Text;
 
@@ -75,8 +78,18 @@ public class DouBFragment extends BaseFragment<DouBView, DouBPresenter> implemen
     }
 
     @Override
-    public void onSearchBookSuccessed(List<Book> bookList) {
-        rvDouB.setAdapter(new BookAdapter(mContext, bookList));
+    public void onSearchBookSuccessed(final List<Book> bookList) {
+        BookAdapter bookAdapter = new BookAdapter(mContext, bookList);
+        bookAdapter.setOnItemClickLitener(new BookAdapter.OnItemClickLitener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(getActivity(), BookDetailActivity.class);
+                Gson gson = new Gson();
+                intent.putExtra("book", gson.toJson(bookList.get(position)));
+                startActivity(intent);
+            }
+        });
+        rvDouB.setAdapter(bookAdapter);
     }
 
     @Override
