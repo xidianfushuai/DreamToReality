@@ -2,36 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/iv_search"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <EditText
-            android:id="@+id/et_book_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="5"
-            android:hint="请输入书名"
-            android:padding="@dimen/space_l"
-            android:textSize="@dimen/text_xl"
-            android:background="@null"
-            android:textColor="@color/colorAccent"
-            android:singleLine="true"/>
-        <Button
-            android:id="@+id/bt_search"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="搜索"
-            android:textSize="@dimen/text_l"/>
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorGrey"></View>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_dou_b"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"></android.support.v7.widget.RecyclerView>
+        android:src="@mipmap/beauty1" />
 </LinearLayout>

@@ -3,7 +3,7 @@ package com.example.handsomefu.dreamtoreality.model.bean;
 import java.util.List;
 public class Book {
     //评分情况
-    private Rating rating;
+    private BRating BRating;
     //副标题
     private String subtitle;
     //作者们
@@ -47,8 +47,8 @@ public class Book {
     //价格
     private String price;
 
-    public Rating getRating() {
-        return rating;
+    public BRating getBRating() {
+        return BRating;
     }
 
     public String getSubtitle() {

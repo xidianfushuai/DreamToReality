@@ -27,5 +27,11 @@
         <item name="android:layout_marginLeft">@dimen/space_xl</item>
         <item name="android:layout_gravity">center_vertical</item>
     </style>
+    <style name="Dialog" parent="android:style/Theme.Dialog">
+        <!--将dialog背景设置成透明，否则有黑边-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
 
 </resources>

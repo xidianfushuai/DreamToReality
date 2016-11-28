@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,7 +17,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="3">
 
                 <ImageView
                     android:id="@+id/iv_cover"
@@ -30,7 +31,7 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="4">
 
                 <TextView
                     android:id="@+id/tv_title"
@@ -40,7 +41,7 @@
                     android:singleLine="true"
                     android:text="百年孤独"
                     android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/text_xxxl" />
+                    android:textSize="@dimen/text_xxl" />
 
                 <TextView
                     android:id="@+id/tv_origin_title"
@@ -51,7 +52,7 @@
                     android:singleLine="true"
                     android:text="百年孤独"
                     android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/text_xxl"
+                    android:textSize="@dimen/text_xl"
                     android:visibility="gone" />
 
                 <TextView
@@ -59,10 +60,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_origin_title"
-                    android:layout_marginTop="@dimen/space_l"
+                    android:layout_marginTop="@dimen/space_s"
                     android:maxLines="3"
                     android:text="副标题"
-                    android:textSize="@dimen/text_xl"
+                    android:textSize="@dimen/text_l"
                     android:visibility="gone" />
 
                 <TextView
@@ -70,9 +71,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_subtitle"
-                    android:layout_marginTop="@dimen/space_m"
+                    android:layout_marginTop="@dimen/space_s"
                     android:singleLine="true"
                     android:text="作者们"
+                    android:textSize="@dimen/text_h_l"
                     android:visibility="gone" />
 
                 <TextView
@@ -80,10 +82,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_auther"
-                    android:layout_marginTop="@dimen/space_m"
+                    android:layout_marginTop="@dimen/space_s"
                     android:singleLine="true"
                     android:text="出版日期/出版商"
                     android:textColor="@color/colorGrey"
+                    android:textSize="@dimen/text_h_l"
+                    android:visibility="gone" />
+                <TextView
+                    android:id="@+id/tv_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_publish"
+                    android:layout_marginTop="@dimen/space_s"
+                    android:singleLine="true"
+                    android:text="评分"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_xl"
                     android:visibility="gone" />
             </RelativeLayout>
         </LinearLayout>
@@ -102,7 +116,7 @@
             android:text="mxosidjciosdjcosjdcosjdciojsodcjoisdjcoisjdc小出纳四川女孩in吃撒多次才能读出"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/text_xl"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_author_intro"
@@ -112,7 +126,7 @@
             android:text="mxosidjciosdjcosjdcosjdciojsodcjoisdjcoisjdc小出纳四川女孩in吃撒多次才能读出"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/text_xl"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_catalog"
@@ -122,7 +136,7 @@
             android:text="mxosidjciosdjcosjdcosjdciojsodcjoisdjcoisjdc小出纳四川女孩in吃撒多次才能读出"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/text_xl"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_url"
@@ -132,7 +146,7 @@
             android:text="mxosidjciosdjcosjdcosjdciojsodcjoisdjcoisjdc小出纳四川女孩in吃撒多次才能读出"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/text_xl"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
     </LinearLayout>
 </ScrollView>

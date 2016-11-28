@@ -5,6 +5,7 @@ package com.example.handsomefu.dreamtoreality.model.http;
  */
 
 public class ApiType {
+    public static final String DAILY = "每日精选";
     public static final String WELFARE = "福利";
     public static final String ANDROID = "Android";
     public static final String IOS = "iOS";

@@ -40,6 +40,8 @@ public class BookDetailActivity extends AppCompatActivity {
     TextView tvAuther;
     @Bind(R.id.tv_publish)
     TextView tvPublish;
+    @Bind(R.id.tv_rating)
+    TextView tvRating;
     @Bind(R.id.rv_tag)
     RecyclerView rvTag;
     @Bind(R.id.tv_summary)
@@ -61,17 +63,17 @@ public class BookDetailActivity extends AppCompatActivity {
         ivCover.measure(w, h);
         int width = ivCover.getMeasuredWidth();
         LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) ivCover.getLayoutParams(); //取控件textView当前的布局参数
-        linearParams.height = (int) (width * 3.6);
+        linearParams.height = (int) (width * 3.0);
         ivCover.setLayoutParams(linearParams); //使设置好的布局参数应用到控件
         Book book = new Gson().fromJson(getIntent().getStringExtra("book"), Book.class);
         if (book.getImages() != null && book.getImages().getLarge() != null)
             Glides.getInstance().load(this, book.getImages().getLarge(), ivCover);
         tvTitle.setText(book.getTitle());
-        if (book.getOrigin_title() != null) {
+        if (!TextUtils.isEmpty(book.getOrigin_title())) {
             tvOriginTitle.setVisibility(View.VISIBLE);
             tvOriginTitle.setText(book.getOrigin_title());
         }
-        if (book.getSubtitle() != null) {
+        if (!TextUtils.isEmpty(book.getSubtitle())) {
             tvSub.setVisibility(View.VISIBLE);
             tvSub.setText(book.getSubtitle());
         }
@@ -84,14 +86,21 @@ public class BookDetailActivity extends AppCompatActivity {
             tvAuther.setVisibility(View.VISIBLE);
             tvAuther.setText(names);
         }
-        String pub = "";
-        if (book.getPubdate() != null)
-            pub = pub + book.getPubdate();
-        if (book.getPublisher() != null)
-            pub = pub + "/" + book.getPublisher();
+        String pub = book.getPubdate();
+        if (!TextUtils.isEmpty(pub)) {
+            if (!TextUtils.isEmpty(book.getPublisher()))
+                pub = pub + "/" + book.getPublisher();
+        }else {
+            if (!TextUtils.isEmpty(book.getPublisher()))
+                pub = pub + book.getPublisher();
+        }
         if (!TextUtils.isEmpty(pub)){
             tvPublish.setVisibility(View.VISIBLE);
             tvPublish.setText(pub);
+        }
+        if (book.getBRating() != null) {
+            tvRating.setVisibility(View.VISIBLE);
+            tvRating.setText(book.getBRating().getAverage() + "");
         }
         List<Tag> tagList = book.getTags();
         if (tagList != null && tagList.size() > 0) {
@@ -99,20 +108,20 @@ public class BookDetailActivity extends AppCompatActivity {
             rvTag.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
             rvTag.setAdapter(new TagAdapter(this, tagList));
         }
-        if (book.getSummary() != null) {
+        if (!TextUtils.isEmpty(book.getSummary())) {
             tvSummary.setVisibility(View.VISIBLE);
-            tvSummary.setText(book.getSummary());
+            tvSummary.setText("    " + book.getSummary());
         }
-        if (book.getAuthor_intro() != null) {
+        if (!TextUtils.isEmpty(book.getAuthor_intro())) {
             tvAutherIntro.setVisibility(View.VISIBLE);
-            tvAutherIntro.setText(book.getAuthor_intro());
+            tvAutherIntro.setText("    " + book.getAuthor_intro());
         }
-        if (book.getCatalog() != null) {
+        if (!TextUtils.isEmpty(book.getCatalog())) {
             tvCatalog.setVisibility(View.VISIBLE);
-            tvCatalog.setText(book.getCatalog());
-        }if (book.getUrl() != null) {
+            tvCatalog.setText("    " + book.getCatalog());
+        }if (!TextUtils.isEmpty(book.getUrl())) {
             tvUrl.setVisibility(View.VISIBLE);
-            tvUrl.setText(book.getUrl());
+            tvUrl.setText("    " + book.getUrl());
         }
     }
 }

@@ -19,7 +19,7 @@ import com.example.handsomefu.dreamtoreality.model.utils.Glides;
  * Created by HandsomeFu on 2016/11/17.
  */
 
-public class WebviewActivity extends AppCompatActivity {
+public class WelfareWebviewActivity extends AppCompatActivity {
     private WebView webView;
     private ImageView ivWelfare;
     private String url;

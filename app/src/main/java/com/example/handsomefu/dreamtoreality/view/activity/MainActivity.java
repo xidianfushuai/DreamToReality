@@ -10,14 +10,18 @@ import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.example.handsomefu.dreamtoreality.basemvp.BaseActivity;
 import com.example.handsomefu.dreamtoreality.model.http.ApiType;
+import com.example.handsomefu.dreamtoreality.model.utils.CommonUtils;
 import com.example.handsomefu.dreamtoreality.model.utils.Glides;
 import com.example.handsomefu.dreamtoreality.presenter.HomePresenter;
+import com.example.handsomefu.dreamtoreality.view.dialog.CustomDialog;
 import com.example.handsomefu.dreamtoreality.view.fragment.DouBFragment;
 import com.example.handsomefu.dreamtoreality.view.fragment.HomeFragment;
 import com.example.handsomefu.dreamtoreality.view.fragment.MyFragment;
@@ -46,20 +50,42 @@ public class MainActivity extends BaseActivity<HomeView, HomePresenter> implemen
 
     @Override
     protected void initView() {
-        bottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
+        bottomNavigationBar.setMode(BottomNavigationBar.MODE_SHIFTING);
         bottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE);
         bottomNavigationBar.addItem(new BottomNavigationItem(R.mipmap.main_home, "Home").
                 setActiveColorResource(R.color.colorPrimary));
-        bottomNavigationBar.addItem(new BottomNavigationItem(R.mipmap.main_friends, "Books").
-                setActiveColorResource(R.color.colorAccent));
+        bottomNavigationBar.addItem(new BottomNavigationItem(R.mipmap.main_bmm, "BMM").
+                setActiveColorResource(R.color.colorPrimary));
         bottomNavigationBar.addItem(new BottomNavigationItem(R.mipmap.main_my, "My").
-                setActiveColorResource(R.color.colorGreen));
+                setActiveColorResource(R.color.colorPrimary));
         bottomNavigationBar.initialise();
 
         Glides.getInstance().loadCircle(getContext(), R.mipmap.beauty1, ivHead);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mFragmentManager = getSupportFragmentManager();
         setDefaultFragment();
+        CustomDialog customDialog = new CustomDialog.Builder(this).
+                setColorId(R.color.colorBlack).
+                setNegativeDesc("buyong").
+                setPositiveDesc("good").
+                setTitle("enna").setOnClickListener(new CustomDialog.Builder.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (view.getId()) {
+                    case R.id.tv_title:
+                        CommonUtils.toast("tv_title");
+                        break;
+                    case R.id.tv_confirm:
+                        CommonUtils.toast("tv_confirm");
+                        break;
+                    case R.id.tv_cancel:
+                        CommonUtils.toast("tv_cancel");
+                        break;
+
+                }
+            }
+        }).create();
+        customDialog.show();
     }
 
     @Override
@@ -82,7 +108,14 @@ public class MainActivity extends BaseActivity<HomeView, HomePresenter> implemen
         });
     }
 
-    @OnClick({R.id.ll_splendid, R.id.ll_beautiful_girl, R.id.ll_android, R.id.ll_ios, R.id.ll_web, R.id.ll_video, R.id.ll_more, R.id.ll_app})
+    @OnClick({R.id.ll_splendid,
+            R.id.ll_beautiful_girl,
+            R.id.ll_android,
+            R.id.ll_ios,
+            R.id.ll_web,
+            R.id.ll_video,
+            R.id.ll_more,
+            R.id.ll_app})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_splendid:
@@ -117,14 +150,14 @@ public class MainActivity extends BaseActivity<HomeView, HomePresenter> implemen
     private void requestDaily() {
         Fragment fragment = mFragmentManager.findFragmentByTag("0");
         if (fragment != null) {
-            ((HomeFragment)fragment).getDaily();
+            ((HomeFragment) fragment).getDaily();
         }
     }
 
     private void requestData(String type) {
         Fragment fragment = mFragmentManager.findFragmentByTag("0");
         if (fragment != null) {
-            ((HomeFragment)fragment).getData(type);
+            ((HomeFragment) fragment).getData(type);
         }
     }
 

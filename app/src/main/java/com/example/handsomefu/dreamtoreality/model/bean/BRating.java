@@ -6,7 +6,7 @@ package com.example.handsomefu.dreamtoreality.model.bean;
 
  */
 
-public class Rating {
+public class BRating {
     //最高分
     private int max;
     //评分人数

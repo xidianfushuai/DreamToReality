@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/space_l">
+    <ImageView
+        android:id="@+id/iv_cover"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="@mipmap/beauty1"/>
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="美丽人生"
+        android:layout_toRightOf="@id/iv_cover"
+        android:textColor="@color/colorGreen"
+        android:layout_marginLeft="@dimen/space_l"
+        android:textSize="@dimen/text_xl"/>
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_genre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/iv_cover"
+        android:text="流派"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginLeft="@dimen/space_l"
+        android:layout_below="@id/tv_title"
+        android:maxLines="4"
+        android:layout_marginTop="@dimen/space_l"/>
+    <TextView
+        android:id="@+id/tv_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="8.8/2016-12-12/中国"
+        android:layout_toRightOf="@id/iv_cover"
+        android:layout_marginLeft="@dimen/space_l"
+        android:layout_alignBottom="@id/iv_cover"
+        android:textColor="@color/colorAccent"/>
+
+</RelativeLayout>

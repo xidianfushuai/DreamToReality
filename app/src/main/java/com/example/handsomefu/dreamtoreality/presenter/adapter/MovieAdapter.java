@@ -3,6 +3,7 @@ package com.example.handsomefu.dreamtoreality.presenter.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +12,21 @@ import android.widget.TextView;
 
 import com.example.handsomefu.dreamtoreality.R;
 import com.example.handsomefu.dreamtoreality.model.bean.Book;
+import com.example.handsomefu.dreamtoreality.model.bean.Movie;
 import com.example.handsomefu.dreamtoreality.model.utils.Glides;
 
 import java.util.List;
 
+import static android.media.CamcorderProfile.get;
+
 /**
  * Created by HandsomeFu on 2016/11/17.
  */
-public class BookAdapter extends RecyclerView.Adapter<BookAdapter.MyViewHolder> {
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder> {
     private Context mContext;
-    private List<Book> bookList;
+    private List<Movie> movieList;
     private OnItemClickLitener mOnItemClickLitener;
-    private Book book;
+    private Movie movie;
 
     public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener) {
         this.mOnItemClickLitener = mOnItemClickLitener;
@@ -32,29 +36,38 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.MyViewHolder> 
         void onItemClick(View view, int position);
     }
 
-    public BookAdapter(Context mContext, List<Book> bookList) {
-        this.bookList = bookList;
+    public MovieAdapter(Context mContext, List<Movie> movieList) {
+        this.movieList = movieList;
         this.mContext = mContext;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        MyViewHolder holder = new BookAdapter.MyViewHolder(LayoutInflater.from(mContext).
-                inflate(R.layout.item_doub_book, parent, false));
+        MyViewHolder holder = new MovieAdapter.MyViewHolder(LayoutInflater.from(mContext).
+                inflate(R.layout.item_doub_movie, parent, false));
         return holder;
     }
-
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        book = bookList.get(position);
-        if (book.getImages() != null && !TextUtils.isEmpty(book.getImages().getMedium()))
-            Glides.getInstance().load(mContext, book.getImages().getLarge(), holder.ivCover);
-        holder.tvTitle.setText(book.getTitle());
-        String sum = book.getSummary();
-        holder.tvDesc.setText(book.getSummary());
-        if (book.getBRating() != null)
-            holder.tvDetails.setText(book.getBRating().getAverage() + "/" + book.getPublisher() + "/" + book.getPubdate());
-        // 如果设置了回调，则设置点击事件
+        movie = movieList.get(position);
+        if (movie.getImages() != null)
+            Glides.getInstance().load(mContext, movie.getImages().getLarge(), holder.ivCover);
+        holder.tvTitle.setText(movie.getTitle());
+        String detail = "";
+        if (movie.getRating() != null)
+            detail = movie.getRating().getAverage() + "";
+        if (!TextUtils.isEmpty(movie.getYear()))
+            detail = detail + "/" + movie.getYear();
+        holder.tvDetail.setText(detail);
+        List<String> genreList = movie.getGenres();
+        if (genreList != null && genreList.size() > 0) {
+            String genres = genreList.get(0);
+            for (int i = 1; i < genreList.size(); i++) {
+                genres = genres + "/" + genreList.get(i);
+            }
+            holder.tvGenre.setVisibility(View.VISIBLE);
+            holder.tvGenre.setText(genres);
+        }
         if (mOnItemClickLitener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -63,25 +76,26 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.MyViewHolder> 
                 }
             });
         }
+
     }
 
     @Override
     public int getItemCount() {
-        return bookList.size();
+        return movieList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView ivCover;
-        TextView tvTitle;
-        TextView tvDesc;
-        TextView tvDetails;
+        private ImageView ivCover;
+        private TextView tvTitle;
+        private TextView tvGenre;
+        private TextView tvDetail;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             ivCover = (ImageView) itemView.findViewById(R.id.iv_cover);
             tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
-            tvDesc = (TextView) itemView.findViewById(R.id.tv_desc);
-            tvDetails = (TextView) itemView.findViewById(R.id.tv_details);
+            tvGenre = (TextView) itemView.findViewById(R.id.tv_genre);
+            tvDetail = (TextView) itemView.findViewById(R.id.tv_detail);
         }
     }
 }

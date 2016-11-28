@@ -1,9 +1,9 @@
 package com.example.handsomefu.dreamtoreality.model.http;
 
 import com.example.handsomefu.dreamtoreality.model.bean.Book;
-import com.example.handsomefu.dreamtoreality.model.bean.DataItem;
-import com.example.handsomefu.dreamtoreality.model.bean.DouBHttpResult;
-import com.example.handsomefu.dreamtoreality.model.bean.WelfareHttpResult;
+import com.example.handsomefu.dreamtoreality.model.bean.BookHttpResult;
+import com.example.handsomefu.dreamtoreality.model.bean.Movie;
+import com.example.handsomefu.dreamtoreality.model.bean.Music;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -19,8 +19,6 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
-import static android.R.attr.type;
-
 /**
  * Created by HandsomeFu on 2016/11/17.
  */
@@ -30,6 +28,7 @@ public class DouBHttpMethods {
     private static final int DEFAULT_TIMEOUT = 8;
     private Retrofit retrofit;
     private DouBApiService douBApiService;
+
     //构造方法私有
     private DouBHttpMethods() {
         //手动创建一个OkHttpClient并设置超时时间
@@ -45,46 +44,58 @@ public class DouBHttpMethods {
                 .build();
         douBApiService = retrofit.create(DouBApiService.class);
     }
+
     //在访问HttpMethods时创建单例
-    private static class SingletonHolder{
+    private static class SingletonHolder {
         private static final DouBHttpMethods INSTANCE = new DouBHttpMethods();
     }
 
     //获取单例
-    public static DouBHttpMethods getInstance(){
+    public static DouBHttpMethods getInstance() {
         return DouBHttpMethods.SingletonHolder.INSTANCE;
     }
 
-    /**
-     * 用来统一处理Http的resultCode,并将HttpResult的Data部分剥离出来返回给subscriber
-     * @param <T> Subscriber真正需要的数据类型，也就是results部分的数据类型
-     */
-    private class HttpResultFunc<T> implements Func1<DouBHttpResult<T>, T> {
-        @Override
-        public T call(DouBHttpResult<T> douBHttpResult) {
-//            if (douBHttpResult.isError() == true) {
-//                throw new ApiException(welfareHttpResult.getError_code());
-//                throw new ApiException("可能哪里出错了吧~~~");
-//            }
-            T t = douBHttpResult.getResult();
-            return t;
-        }
-    }
-    private <T> void toSubscribe(Observable<T> observable, Subscriber<T> subscriber){
+
+
+    private <T> void toSubscribe(Observable<T> observable, Subscriber<T> subscriber) {
         observable.subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
     public void searchBook(
             Subscriber<List<Book>> subscriber,
             String q,
             String tag,
             int start,
-            int count){
+            int count) {
         Observable<List<Book>> observable = douBApiService.
                 searchBook(q, tag, start, count).
-                map(new HttpResultFunc<List<Book>>());
-        toSubscribe(observable,subscriber);
+                map(new BookHttpResultFunc<List<Book>>());
+        toSubscribe(observable, subscriber);
+    }
+
+    public void searchMovie(
+            Subscriber<List<Movie>> subscriber,
+            String q,
+            String tag,
+            int start,
+            int count) {
+        Observable<List<Movie>> observable = douBApiService.
+                searchMovie(q, tag, start, count).
+                map(new MovieHttpResultFunc<List<Movie>>());
+        toSubscribe(observable, subscriber);
+    }
+    public void searchMusic(
+            Subscriber<List<Music>> subscriber,
+            String q,
+            String tag,
+            int start,
+            int count) {
+        Observable<List<Music>> observable = douBApiService.
+                searchMusic(q, tag, start, count).
+                map(new MusicHttpResultFunc<List<Music>>());
+        toSubscribe(observable, subscriber);
     }
 }

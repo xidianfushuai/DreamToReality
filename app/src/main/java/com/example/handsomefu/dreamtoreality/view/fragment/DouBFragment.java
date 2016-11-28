@@ -8,41 +8,45 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.handsomefu.dreamtoreality.R;
 import com.example.handsomefu.dreamtoreality.basemvp.BaseFragment;
 import com.example.handsomefu.dreamtoreality.model.bean.Book;
+import com.example.handsomefu.dreamtoreality.model.bean.Movie;
+import com.example.handsomefu.dreamtoreality.model.bean.Music;
 import com.example.handsomefu.dreamtoreality.model.utils.CommonUtils;
-import com.example.handsomefu.dreamtoreality.presenter.DouBPresenter;
+import com.example.handsomefu.dreamtoreality.presenter.SearchPresenter;
 import com.example.handsomefu.dreamtoreality.presenter.adapter.BookAdapter;
+import com.example.handsomefu.dreamtoreality.presenter.adapter.MovieAdapter;
 import com.example.handsomefu.dreamtoreality.view.activity.BookDetailActivity;
-import com.example.handsomefu.dreamtoreality.view.viewi.DouBView;
+import com.example.handsomefu.dreamtoreality.view.activity.SearchActivity;
+import com.example.handsomefu.dreamtoreality.view.viewi.SearchView;
 import com.google.gson.Gson;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
-
 /**
  * Created by HandsomeFu on 2016/11/14.
  */
-public class DouBFragment extends BaseFragment<DouBView, DouBPresenter> implements DouBView{
-    @Bind(R.id.et_book_name)
-    EditText etBookName;
-    @Bind(R.id.bt_search)
-    Button btSearch;
-    @Bind(R.id.rv_dou_b)
-    RecyclerView rvDouB;
+public class DouBFragment extends BaseFragment<SearchView, SearchPresenter> implements SearchView {
     private ProgressDialog progressDialog;
+
+
+
+    @OnClick({R.id.iv_search})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.iv_search:
+                startActivity(new Intent(getActivity(), SearchActivity.class));
+                break;
+        }
+    }
     @Override
-    protected DouBPresenter initPresenter() {
-        return new DouBPresenter();
+    protected SearchPresenter initPresenter() {
+        return new SearchPresenter();
     }
 
     @Override
@@ -54,28 +58,14 @@ public class DouBFragment extends BaseFragment<DouBView, DouBPresenter> implemen
     protected void initView() {
         progressDialog = new ProgressDialog(mContext);
         progressDialog.setCancelable(false);
-        rvDouB.setLayoutManager(new LinearLayoutManager(mContext));
     }
 
     @Override
     public int getLayoutId() {
         return R.layout.fg_doub;
     }
-    @OnClick({R.id.bt_search})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.bt_search:
-                if (TextUtils.isEmpty(getSearchKey())) {
-                    CommonUtils.toast("请输入书名");
-                    return;
-                }
-                presenter.searchBook(getSearchKey(), null, 0, 10);
-                break;
-        }
-    }
-    private String getSearchKey(){
-        return etBookName.getText().toString().trim();
-    }
+
+
 
     @Override
     public void onSearchBookSuccessed(final List<Book> bookList) {
@@ -89,11 +79,31 @@ public class DouBFragment extends BaseFragment<DouBView, DouBPresenter> implemen
                 startActivity(intent);
             }
         });
-        rvDouB.setAdapter(bookAdapter);
     }
 
     @Override
     public void onSearchBookFailed(String message) {
+
+    }
+
+    @Override
+    public void onSearchMovieFailed(String message) {
+
+    }
+
+    @Override
+    public void onSearchMovieSuccessed(final List<Movie> movieList) {
+        MovieAdapter movieAdapter = new MovieAdapter(mContext, movieList);
+
+    }
+
+    @Override
+    public void onSearchMusicFailed(String message) {
+
+    }
+
+    @Override
+    public void onSearchMusicSuccessed(List<Music> musicList) {
 
     }
 
